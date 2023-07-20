@@ -1,0 +1,48 @@
+.filterSelectors {
+    outline: 2px solid green;
+    border-radius: 2em;
+    padding: 0.5em;
+    margin: 0.5em;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.dualSelectors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.singleSelector {
+    padding-left: 1em;
+    padding-right: 1em;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+select {
+    min-width: 14em;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .filterSelectors {
+        width: auto;
+    }
+
+}
