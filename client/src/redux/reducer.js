@@ -1,151 +1,129 @@
-// Action Types
 import { 
-    LOAD_GAME_INFO,
-    RELOAD_GAME_INFO,
-    LOAD_GAME_DETAILS,
-    SET_CURRENT_PAGE,
-    SET_PAGE_FILTERS_GENRE,
-    SET_PAGE_FILTERS_ORIGIN,
-    SET_PAGE_FILTERS_ORDER_BY,
-    SET_PAGE_FILTERS_ORDER_DIRECTION,
-    LOAD_GENRES,
-    SET_POST_FILTER_GAMES,
-    SET_SEARCH_BAR_VALUE,
-    SHOW_EXTRA_SEARCH_BUTTON,
-    RESET_PAGE_FILTERS
+    CREATE_GAME,
+    DELETE_GAME,
+    UPGRADE_GAME,
+    FILTER_CREATED, 
+    FILTER_GENRE, 
+    FILTER_ORDER, 
+    FILTER_PLATFORM, 
+    FILTER_RATING, 
+    GET_DETAILS, 
+    GET_GAMES, 
+    GET_GENRES, 
+    SEARCH_GAMES,
 } from "./actions"
 
-const defaultFilters = {
-    genre: "all", // Filtrar por género
-    origin: "all", // Filtrar por origen
-    orderBy: "rat", // Ordenar por...
-    orderDirection: "down" // Tipo de orden... (ascendente, descendente)
+const initalState = {
+    // createGame: null,
+    games: [],
+    detailGame: [],
+    searchGames: [],
+    gamesFilter: [],
+    genresFilter: [],
 }
 
-const initialState = {
-    gameInfo: null,
-    currentGameDetails: null,
-    currentPage: 1,
-    filters: defaultFilters,
-    lastUsedfilters: defaultFilters,
-    gameInfoPostFilters: null,
-    genres: null,
-    searchBarContent: '',
-    showExtraSearchButton: false
-}
-
-export function gameStore(state = initialState, action) {
-    switch (action.type) {
-        case LOAD_GAME_INFO:
+export default function rootReducer( state = initalState, { type, payload }) {
+    switch ( type ) {
+        case CREATE_GAME:
+            return{
+                ...state,
+            }
+        case UPGRADE_GAME:
+            return{
+                ...state,
+            }
+        case DELETE_GAME:
             return {
                 ...state,
-                gameInfo: action.payload
-            }
-        
-        case RELOAD_GAME_INFO:
+            };
+        case GET_GAMES:
             return {
                 ...state,
-                gameInfo: action.payload,
-                gameInfoPostFilters: null
-            }
-    
-        case LOAD_GAME_DETAILS:
+                games: payload,
+                gamesFilter: payload,
+            };
+        case GET_GENRES:
             return {
                 ...state,
-                currentGameDetails: action.payload
-            }
-        
-        case SET_CURRENT_PAGE:
-            return {
-                ...state,
-                currentPage: action.payload
-            }
-
-        case SET_PAGE_FILTERS_GENRE:
-            return {
-                ...state,
-                filters: {
-                    ...state.filters,
-                    genre: action.payload
-                }
-            }
-        
-        case SET_PAGE_FILTERS_ORIGIN:
-            return {
-                ...state,
-                filters: {
-                    ...state.filters,
-                    origin: action.payload
-                }
-            }
-        
-        case SET_PAGE_FILTERS_ORDER_BY:
-            let orderBy = action.payload
-            let orderDirection = "down"
-
-            if (orderBy === "alf") {
-                orderDirection = "up"
-            }
-        
-            return {
-                ...state,
-                filters: {
-                    ...state.filters,
-                    orderBy: orderBy,
-                    orderDirection: orderDirection
-                }
-            }
-        
-        case SET_PAGE_FILTERS_ORDER_DIRECTION:
-            return {
-                ...state,
-                filters: {
-                    ...state.filters,
-                    orderDirection: action.payload
-                }
-            }
-
-        case LOAD_GENRES:
-            return {
-                ...state,
-                genres: action.payload
-            }
-        
-        case SET_POST_FILTER_GAMES:
-            if (action.payload[0]) {
+                genresFilter: payload,
+            };
+        case GET_DETAILS:
                 return {
                     ...state,
-                    lastUsedfilters: action.payload[0],
-                    gameInfoPostFilters: action.payload[1]
-                }
-            } else {
+                    detailGame: payload
+                };
+        case SEARCH_GAMES:
                 return {
                     ...state,
-                    gameInfoPostFilters: action.payload[1]
-                }
-            }
-        
-            
-
-        case SET_SEARCH_BAR_VALUE:
-            return {
+                    searchGames: payload
+                };    
+        case FILTER_CREATED:
+            const gamesCreatedFilter = state.gamesFilter;
+            const createdFilter = payload === "created"  
+                ? gamesCreatedFilter.filter( game => game.created === true ) 
+                : gamesCreatedFilter.filter( game => game.created === false );
+            return{
                 ...state,
-                searchBarContent: action.payload
-            }
-        
-        case SHOW_EXTRA_SEARCH_BUTTON:
-            return {
+                games: payload === "All" ? gamesCreatedFilter : createdFilter,
+            };
+        case FILTER_ORDER: 
+            const gamesNameFilter = state.games;
+            const nameFilter = payload === "asc"  
+                ? gamesNameFilter.slice().sort( function(a, b) {
+                    if( a.name.toLowerCase() < b.name.toLowerCase() ) return -1;
+                    if( b.name.toLowerCase() < a.name.toLowerCase() )  return 1;
+                    return 0;
+                }) : 
+                gamesNameFilter.slice().sort( function(a, b) {
+                    if( a.name.toLowerCase() > b.name.toLowerCase() ) return -1;
+                    if( b.name.toLowerCase() > a.name.toLowerCase() )  return 1;
+                    return 0;
+                })
+            return{
                 ...state,
-                showExtraSearchButton: action.payload
-            }
-
-        case RESET_PAGE_FILTERS:
-            return {
+                games: nameFilter,
+            };
+        case FILTER_RATING: 
+            const gamesRatingFilter = state.games;
+            const ratingFilter = payload === "rAsc"
+                ? gamesRatingFilter.slice().sort( function(a, b) {
+                    if( a.rating > b.rating ) return -1;
+                    if( b.rating > a.rating ) return 1;
+                    return 0;
+                }) : 
+                gamesRatingFilter.slice().sort( function(a, b) {
+                    if( a.rating < b.rating ) return -1 ;
+                    if( b.rating < a.rating ) return 1;
+                    return 0;
+                })
+            return{
                 ...state,
-                filters: defaultFilters,
-                lastUsedfilters: defaultFilters,
-            }
+                games: ratingFilter,
+            };
+        case FILTER_PLATFORM: 
+            const gamesPlatformFilter = state.gamesFilter;
+            const platformFilter = gamesPlatformFilter
+                .filter( game => game.parent_platforms
+                .map( p => p.toLowerCase())
+                .includes( payload ) );
+            return{
+                ...state,
+                games: payload === "All" ? gamesPlatformFilter : platformFilter,
+            };
+        case FILTER_GENRE: 
+            const gamesGenreFilter = state.gamesFilter;
+            const genresFilter = payload === "All" 
+                ? gamesGenreFilter 
+                : gamesGenreFilter
+                    .filter( game => game.genres
+                        .map( p => p.name)
+                        .includes( payload )
+                    );
+        return{
+                ...state,
+                games: genresFilter.length === 0  ? `Not found games with the genre: ${ payload }` : genresFilter,
+            };
         default:
-            return state;
+            return { ...state };
     }
 }

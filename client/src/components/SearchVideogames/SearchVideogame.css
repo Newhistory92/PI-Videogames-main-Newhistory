@@ -1,0 +1,19 @@
+#searchVideogame{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-image: linear-gradient( 
+            rgba(15, 15, 15, 0), 
+            rgb(21, 21, 21)
+        ),
+        linear-gradient(
+            rgba(21, 21, 21, 0.8), 
+            rgba(21, 21, 21, 0.5)
+        ),
+        url("https://gifsanimados.de/img-gifsanimados.de/v/videojuegos/pacman.gif")
+    ;
+    background-position: center;
+    background-repeat: no-repeat ;
+    background-size: cover;
+    background-attachment: fixed;
+}

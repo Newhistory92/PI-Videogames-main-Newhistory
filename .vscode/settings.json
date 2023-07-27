@@ -2,6 +2,7 @@
     "cSpell.words": [
         "Concatena",
         "Crea",
+        "creategame",
         "datos",
         "Filtra",
         "formato",
@@ -15,6 +16,8 @@
         "tengan",
         "titulo",
         "traerlos",
-        "Videogame"
+        "updategame",
+        "Videogame",
+        "videogames"
     ]
 }

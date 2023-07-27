@@ -1,7 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { legacy_createStore as createStore, compose, applyMiddleware } from 'redux'
+import rootReducer from './reducer'
+import thunk from 'redux-thunk'
 
-import { gameStore } from './reducer'
-
-const store = configureStore({ reducer: gameStore })
-
-export default store;
+const store = createStore( 
+    rootReducer, 
+    compose( applyMiddleware(thunk) )    
+)
+    
+export default store

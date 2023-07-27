@@ -1,106 +1,157 @@
-// ACTION TYPES
-export const LOAD_GAME_INFO = 'LOAD_GAME_INFO'
-export const RELOAD_GAME_INFO = 'RELOAD_GAME_INFO'
-export const LOAD_GAME_DETAILS = 'LOAD_GAME_DETAILS'
-export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-export const SET_PAGE_FILTERS_GENRE = 'SET_PAGE_FILTERS_GENRE'
-export const SET_PAGE_FILTERS_ORIGIN = 'SET_PAGE_FILTERS_ORIGIN'
-export const SET_PAGE_FILTERS_ORDER_BY = 'SET_PAGE_FILTERS_ORDER_BY'
-export const SET_PAGE_FILTERS_ORDER_DIRECTION = 'SET_PAGE_FILTERS_ORDER_DIRECTION'
-export const LOAD_GENRES = 'LOAD_GENRES'
-export const SET_POST_FILTER_GAMES = 'SET_POST_FILTER_GAMES'
-export const SET_SEARCH_BAR_VALUE = 'SET_SEARCH_BAR_VALUE'
-export const SHOW_EXTRA_SEARCH_BUTTON = "SHOW_EXTRA_SEARCH_BUTTON"
-export const RESET_PAGE_FILTERS = "RESET_PAGE_FILTERS"
+import axios from 'axios'
 
-// ACTION CREATORS
-export function loadGameInfo(data) {
-    return {
-        type: LOAD_GAME_INFO,
-        payload: data
+export const CREATE_GAME     = "CREATE_GAME";
+export const UPGRADE_GAME    = "UPGRADE_GAME";
+export const GET_GAMES       = "GET_USERS";
+export const GET_GENRES      = "GET_GENRES";
+export const GET_DETAILS     = "GET_DETAILS";
+export const SEARCH_GAMES    = "SEARCH_GAMES";
+export const FILTER_CREATED  = "FILTER_CREATED";
+export const FILTER_ORDER    = "FILTER_ORDER";
+export const FILTER_RATING   = "FILTER_RATING";
+export const FILTER_GENRE    = "FILTER_GENRE";
+export const FILTER_PLATFORM = "FILTER_PLATFORM";
+export const DELETE_GAME     = "DELETE_GAME";
+
+
+// Create
+export const createGame = ( game ) => {
+    const url = "/games";
+    return async function( dispatch ) {
+        try {
+            await axios.post( url, game)
+            return dispatch({ 
+                type: CREATE_GAME, 
+            })
+        } catch (error) {
+            console.log( error );
+            alert( `${ game.name } game already exists` )
+        }
+    }
+};
+
+// Get Games
+export const getGames = () => {
+    const url = "/games";
+    return async function( dispatch ) {
+        try {
+            const games = await axios.get( url )
+            return dispatch({ 
+                type: GET_GAMES, 
+                payload: games.data
+            })
+        } catch (error) {
+            console.log( error );
+        }
+    }
+}
+export const getGenres = () => {
+    const url = "/genres";
+    return async function ( dispatch ) {
+        try {
+            const genres = await axios.get( url )
+            return dispatch({ 
+                type: GET_GENRES, 
+                payload: genres.data
+            })
+            
+        } catch (error) {
+            console.log( error );
+        }
+    }
+}
+export const getDetails = ( id ) => {
+    const url = `/games/${id}`;
+    return async function ( dispatch ) {
+        try {
+            const detail = await axios.get( url )
+            return dispatch({
+                type: GET_DETAILS,
+                payload: detail.data
+            })
+        } catch (error) {
+            
+        }
+    }
+};
+export const searchGames = ( name ) => {
+    const url = `/games?name=${name}`;
+    return async function ( dispatch ) {
+        try {
+            const games = await axios.get( url )
+            return dispatch({ 
+                type: SEARCH_GAMES, 
+                payload: games.data
+            })
+            
+        } catch (error) {
+            console.log( error );
+        }
     }
 }
 
-export function reLoadGameInfo(data) {
-    return {
-        type: RELOAD_GAME_INFO,
-        payload: data
-    }
-}
+// Update Game
+export const updateGames = ( id, game ) => {
+    const url = `/games/${id}`
+    const update = async ( dispatch ) => {
+        try {
+            await axios.put( url, game )
+            alert( `${game.name} has been upgraded` )
+            return dispatch({ 
+                type: CREATE_GAME, 
+            })
+        } catch (error) {
+            console.log( error );
+            alert( `${ game.name } could not be updated` )
+        }
+    };
+    return update
+};
 
-
-export function loadGameDetails(data) {
-    return {
-        type: LOAD_GAME_DETAILS,
-        payload: data
+// Delete Game
+export const deleteGame = ( id ) => {
+    const url = `/games/delete/${id}`
+    return async function ( dispatch ){
+        try {
+            await axios.delete( url )
+            return dispatch({ 
+                type: CREATE_GAME, 
+            })
+        } catch (error) {
+            console.log(error);
+            alert( "The game could not be deleted" )
+        }
     }
-}
+};
 
-export function setCurrentPage(data) {
+// Filters
+export const filterCreated = ( payload ) => {
     return {
-        type: SET_CURRENT_PAGE,
-        payload: data
+        type: FILTER_CREATED,
+        payload
     }
-}
-
-export function setPageFiltersGenre(data) {
+};
+export const filterOrdered = ( payload ) => {
     return {
-        type: SET_PAGE_FILTERS_GENRE,
-        payload: data
+        type: FILTER_ORDER,
+        payload
     }
-}
-
-export function setPageFiltersOrigin(data) {
+};
+export const filterRating = ( payload ) => {
     return {
-        type: SET_PAGE_FILTERS_ORIGIN,
-        payload: data
+        type: FILTER_RATING,
+        payload
     }
-}
-
-export function setPageFiltersOrderBy(data) {
+};
+export const filterPlatform = ( payload ) => {
     return {
-        type: SET_PAGE_FILTERS_ORDER_BY,
-        payload: data
+        type: FILTER_PLATFORM,
+        payload
     }
-}
-
-export function setPageFiltersOrderDirection(data) {
+};
+export const filterGenre = ( payload ) => {
     return {
-        type: SET_PAGE_FILTERS_ORDER_DIRECTION,
-        payload: data
+        type: FILTER_GENRE,
+        payload
     }
-}
-
-export function loadGenres(data) {
-    return {
-        type: LOAD_GENRES,
-        payload: data
-    }
-}
-
-export function setPostFilterGames(data) {
-    return {
-        type: SET_POST_FILTER_GAMES,
-        payload: data
-    }
-}
-
-export function setSearchBarValue(data) {
-    return {
-        type: SET_SEARCH_BAR_VALUE,
-        payload: data
-    }
-}
-
-export function setExtraSearchButton(data) {
-    return {
-        type: SHOW_EXTRA_SEARCH_BUTTON,
-        payload: data
-    }
-}
-
-export function resetPageFilters() {
-    return {
-        type: RESET_PAGE_FILTERS
-    }
-}
+};
