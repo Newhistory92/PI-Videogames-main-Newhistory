@@ -16,7 +16,7 @@ export const DELETE_GAME     = "DELETE_GAME";
 
 // Create
 export const createGame = ( game ) => {
-    const url = "/games";
+    const url = "http://localhost:3000/games";
     return async function( dispatch ) {
         try {
             await axios.post( url, game)
@@ -32,7 +32,7 @@ export const createGame = ( game ) => {
 
 // Get Games
 export const getGames = () => {
-    const url = "/games";
+    const url = "http://localhost:3000/games";
     return async function( dispatch ) {
         try {
             const games = await axios.get( url )
@@ -46,7 +46,7 @@ export const getGames = () => {
     }
 }
 export const getGenres = () => {
-    const url = "/genres";
+    const url = "http://localhost:3000/genres";
     return async function ( dispatch ) {
         try {
             const genres = await axios.get( url )
@@ -61,7 +61,7 @@ export const getGenres = () => {
     }
 }
 export const getDetails = ( id ) => {
-    const url = `/games/${id}`;
+    const url = `http://localhost:3000/games/${id}`;
     return async function ( dispatch ) {
         try {
             const detail = await axios.get( url )
@@ -75,7 +75,7 @@ export const getDetails = ( id ) => {
     }
 };
 export const searchGames = ( name ) => {
-    const url = `/games?name=${name}`;
+    const url = `http://localhost:3000/games?name=${name}`;
     return async function ( dispatch ) {
         try {
             const games = await axios.get( url )
@@ -92,7 +92,7 @@ export const searchGames = ( name ) => {
 
 // Update Game
 export const updateGames = ( id, game ) => {
-    const url = `/games/${id}`
+    const url = `http://localhost:3000/games/${id}`
     const update = async ( dispatch ) => {
         try {
             await axios.put( url, game )
@@ -110,7 +110,7 @@ export const updateGames = ( id, game ) => {
 
 // Delete Game
 export const deleteGame = ( id ) => {
-    const url = `/games/delete/${id}`
+    const url = `http://localhost:3000/games/delete/${id}`
     return async function ( dispatch ){
         try {
             await axios.delete( url )
