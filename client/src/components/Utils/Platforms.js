@@ -9,7 +9,7 @@ import android from '../../Images/Platforms/android.png';
 
 export const platforms = ( platforms ) => {
     return(
-        platforms.map( ( platform, i ) => {
+platforms.forEach( ( platform, i ) => {
             switch (platform) {
                 case 'Xbox':
                     return <img className='logoPlatform' src={ xbox } alt="Logo Xbox" key={ i }/>

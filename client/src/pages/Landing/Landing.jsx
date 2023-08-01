@@ -19,39 +19,39 @@ const Landing = () => {
                 <div className='description' >
                     <p className='desciption1'> Looking for information about your favorite games? You've come to the right place! </p>
                     <section className='infoList'> 
-                        Search and filter
+                        Search and Filter
                         <section className='info2List'>
                             <div className='infoCard'>
                                 <img className='icons' src={name} alt="Icon name" />  
-                                <p> By name </p>
+                                <p> By Name </p>
                             </div>
                             <div className='infoCard'>
                                 <img className='icons' src={gender} alt="Icon gender" />  
-                                <p> By gender </p>
+                                <p> By Gender </p>
                             </div>
                             <div className='infoCard'>
                                 <img className='icons' src={platform} alt="Icon platform" /> 
-                                <p> By platform  </p>
+                                <p> By Platform  </p>
                             </div>
                         </section>
                     </section>
                     <section className='infoList'> 
-                        Add games 
+                        Add Games 
                         <section className='info2List'>
                             <div className='infoCard'>
                                 <img className='icons' src={edit} alt="Icon edit" /> 
-                                <p> Edit them </p>
+                                <p> Edit Them </p>
                             </div>
                             <div className='infoCard'>
                                 <img className='icons' src={deleteT} alt="Icon delete" /> 
-                                <p> Delete them </p>
+                                <p> Delete Them </p>
                             </div>
                         </section>
                     </section>
                 </div>
             </section>
             <section className='img_btn' >
-                <img className='imgLanding' src="https://w0.peakpx.com/wallpaper/222/690/HD-wallpaper-destiny-2-beyond-light-2022-destiny-2-beyond-light-destiny-2-destiny-2022-games-games.jpg" alt="Kids playing" />
+                <img className='imgLanding' src="https://w0.peakpx.com/wallpaper/575/604/HD-wallpaper-video-games-collage-games.jpg" alt="Kids playing" />
                 <Link to={'/home'}> 
                     <button className='btnLanding' > Search Games </button>
                 </Link>

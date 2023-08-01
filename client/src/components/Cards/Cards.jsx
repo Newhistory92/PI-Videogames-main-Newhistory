@@ -46,11 +46,11 @@ function Cards({ currentPage, setCurrentPage, gamesPerPage, indexOfFirstGame, in
             <div className='Cards'>
                 { 
                     games.includes( 'Not found' ) 
-                        ? <div className="notFoundGames"> { games } </div> 
+                        ? <div className="notFoundGames"> { games } </div>   //si el estado de games contiene la cadena 'Not found'.se muestra un mensaje de "Not found"
+                        //Si gamesno está vacío y no contiene la cadena 'Not found', se muestra el componente Loader
                         : games.length !== 0 ? cards() : <Loader/>
                 }
-                //si el estado de games contiene la cadena 'Not found'.se muestra un mensaje de "Not found"
-                //Si gamesno está vacío y no contiene la cadena 'Not found', se muestra el componente Loader
+                
             </div>
             <Pagination 
                 gamesPerPage={ gamesPerPage } 

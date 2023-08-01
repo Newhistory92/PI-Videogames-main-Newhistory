@@ -8,11 +8,11 @@ import './Detail.css'
 const Detail = () => {
     const { id } = useParams();//useParams:se utiliza para obtener el parámetro id del juego específico que se muestra en la página de detalles.
     const dispatch = useDispatch();
-    const detail = useSelector( state => state.detailGame.id == id ? state.detailGame : [] );
+    const detail = useSelector( state => state.detailGame.id === id ? state.detailGame : [] );
     //accedemos al estado de Redux y obtener los detalles del juego específico. La variable detail contiene los detalles del juego con el mismo id obtenido de useParams.
     useEffect( () => {
         dispatch( getDetails( id ))
-    }),//[ dispatch, id ])   
+    },[ dispatch, id ])   
     
     function description() {
         if(detail.length !== 0 ) document.getElementById("description").innerHTML = detail.description.replaceAll("\n", "<br>")

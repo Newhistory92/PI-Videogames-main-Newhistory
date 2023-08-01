@@ -9,8 +9,6 @@ const Footer = () => {
     return (
         <footer id='Footer'>
                 <ul className="listCredits" >
-                        <p className="credits" > Icons: </p>
-        
                 </ul>
                 <div className="iconsWebs" >
                     <a href="https://github.com/Newhistory92" > 
